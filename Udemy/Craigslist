@@ -32,9 +32,34 @@ data = response.text
 soup = BeautifulSoup(data,'html.parser')
 
 
-tags = soup.find_all('a')
+# tags = soup.find_all('a')
 
 
-for tag in tags:
-    print(tag.get('href'))
+# for tag in tags:
+#     print(tag.get('href'))
 
+# print("-----------------------")
+
+# titles = soup.find_all("a",{"class":"result-title"})
+
+# for title in titles:
+#     print(title.text)
+    
+# print("-----------------------")
+
+# adresses = soup.find_all("span",{"class":"result-hood"})
+
+# for adress in adresses:
+#     print(adress.text)
+    
+# print("-----------------------")
+
+jobs = soup.find_all("div", {"class":"result-info"})
+
+for job in jobs:
+    title = job.find("a", {"class":"result-title"}).text
+    location_tag = job.find("span", {"class":"result-hood"})
+    location = location_tag.text if location_tag else "N/A"
+    date = job.find("time", {"class":"result-date"}).text
+    link = job.find("a", {"class":"result-title"}).get('href')
+    print("job-title:", title, "\nlocation:", location, "\ndate:", date, "\nlink:", link, "\n------------")
